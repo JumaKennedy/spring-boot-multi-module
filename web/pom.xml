@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.bomazetu</groupId>
+		<artifactId>spring-boot-multi-module-no-parent</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>	
+	
+
+	<artifactId>web</artifactId>
+	<name>web</name>
+	<description>It's the web application module</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>			
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.tomcat.embed</groupId>
+		    <artifactId>tomcat-embed-jasper</artifactId>		    
+		</dependency>
+		
+        <dependency>
+	       <groupId>com.bomazetu</groupId>
+	       <artifactId>common</artifactId>	
+	       <version>${project.version}</version>      
+	    </dependency>
+		
+	</dependencies>
+
+	<build>
+    	<!--mvn dependency:tree -DoutputFile="dependency-list.txt"-->
+        <plugins>
+            <plugin>
+	            <groupId>org.springframework.boot</groupId>
+	            <artifactId>spring-boot-maven-plugin</artifactId>
+	            <version>${spring-boot.version}</version>  	            
+           </plugin>
+           
+        </plugins>
+    </build>
+
+</project>

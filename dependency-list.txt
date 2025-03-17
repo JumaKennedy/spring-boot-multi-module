@@ -1,0 +1,12 @@
+com.bomazetu:spring-boot-multi-module-no-parent:pom:1.0-SNAPSHOT
+\- org.springframework.boot:spring-boot-devtools:jar:3.4.3:runtime
+   +- org.springframework.boot:spring-boot:jar:3.4.3:runtime
+   |  +- org.springframework:spring-core:jar:6.2.2:runtime
+   |  |  \- org.springframework:spring-jcl:jar:6.2.2:runtime
+   |  \- org.springframework:spring-context:jar:6.2.2:runtime
+   |     +- org.springframework:spring-aop:jar:6.2.2:runtime
+   |     +- org.springframework:spring-beans:jar:6.2.2:runtime
+   |     +- org.springframework:spring-expression:jar:6.2.2:runtime
+   |     \- io.micrometer:micrometer-observation:jar:1.14.4:runtime
+   |        \- io.micrometer:micrometer-commons:jar:1.14.4:runtime
+   \- org.springframework.boot:spring-boot-autoconfigure:jar:3.4.3:runtime

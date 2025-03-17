@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    username: Dev
+    url: jdbc:mysql://localhost:3306/api?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    password: K3nn3dy!!
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: 'true'
+  profiles:
+    active: local
+server:
+  servlet:
+    context-path: /api
+    session:
+      timeout: 15m
+  port: '8080'
+logging:
+  level:
+    root: INFO

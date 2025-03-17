@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.bomazetu</groupId>
+		<artifactId>spring-boot-multi-module-no-parent</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	
+	
+	<artifactId>common</artifactId>	
+	<name>common</name>
+	<packaging>jar</packaging>
+	<description>It's the common application module</description>
+
+	<dependencies>
+		<!-- module dependencies -->
+		<dependency>
+	      <groupId>org.springframework.boot</groupId>
+	      <artifactId>spring-boot-starter-data-jpa</artifactId>
+	    </dependency>
+	    <dependency>
+	      <groupId>org.springframework.boot</groupId>
+	      <artifactId>spring-boot-starter-hateoas</artifactId>
+	    </dependency>
+	    <dependency>
+	      <groupId>com.mysql</groupId>
+	      <artifactId>mysql-connector-j</artifactId>
+	      <scope>runtime</scope>
+	    </dependency>
+	    <dependency>
+		    <groupId>jakarta.servlet</groupId>
+		    <artifactId>jakarta.servlet-api</artifactId>		    
+		    <scope>provided</scope>
+		</dependency>
+
+	</dependencies>
+
+</project>

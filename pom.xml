@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>	
+	
+	<groupId>com.bomazetu</groupId>
+	<artifactId>spring-boot-multi-module-no-parent</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>spring-boot-multi-module-no-parent</name>
+	<description>It's a simple example of a multi module project</description>
+
+	<properties>
+		<!-- shared parent properties -->
+		<java.version>17</java.version>		
+		<maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <spring-boot.version>3.4.3</spring-boot.version>
+        <junit-vintage-engine.version>5.12.1</junit-vintage-engine.version>
+        <spring-framework.version>6.2.2</spring-framework.version>	
+        <spring.boot.mainclass>com.bomazetu.WebApplication</spring.boot.mainclass>	
+	</properties>
+	
+	<dependencyManagement>
+        <dependencies>
+            <dependency>
+			    <groupId>org.springframework</groupId>
+			    <artifactId>spring-framework-bom</artifactId>
+			    <version>${spring-framework.version}</version>
+			    <type>pom</type>
+			    <scope>import</scope>
+			</dependency>	
+			
+			<dependency>
+			    <groupId>org.springframework.boot</groupId>
+			    <artifactId>spring-boot-dependencies</artifactId>
+			    <version>${spring-boot.version}</version>
+			    <type>pom</type>
+			    <scope>import</scope>
+			</dependency>		
+			<dependency>
+			   <groupId>com.bomazetu</groupId>
+			   <artifactId>common</artifactId>
+			   <version>${project.version}</version>
+			</dependency>
+			
+			 <dependency>
+				<groupId>com.bomazetu</groupId>
+				<artifactId>web</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+	    			
+				
+	        </dependencies>
+    </dependencyManagement>
+	 
+	<dependencies>
+  		<!-- dependencies available and shared between the child modules -->
+  		<dependency>
+	      <groupId>org.springframework.boot</groupId>
+	      <artifactId>spring-boot-devtools</artifactId>
+	      <scope>runtime</scope>
+	      <optional>true</optional>
+	    </dependency>
+	    <dependency>
+		<groupId>org.springframework.boot</groupId>
+		  <artifactId>spring-boot-starter-test</artifactId>			
+		  <scope>test</scope>
+		  <exclusions>
+			<exclusion>
+				<groupId>org.junit.vintage</groupId>
+				<artifactId>junit-vintage-engine</artifactId>
+			</exclusion>
+		  </exclusions>
+	    </dependency> 
+	    
+	</dependencies>	
+
+ 	<modules>
+	    <module>common</module>       <!-- dto, api interfaces, any other common data -->
+        <module>web</module>          <!-- web app boot with the rest controllers, etc -->
+	</modules>
+	
+	<build>
+    	<!--mvn dependency:tree -DoutputFile="dependency-list.txt"-->
+        <plugins>                        
+            <plugin>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-maven-plugin</artifactId>
+			<version>${spring-boot.version}</version>  
+			<configuration>
+                <mainClass>${spring.boot.mainclass}</mainClass>              
+            </configuration>
+            
+			
+		</plugin>
+		
+		
+        </plugins>
+    </build>
+    
+</project>
