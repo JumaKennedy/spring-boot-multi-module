@@ -2,10 +2,12 @@ package com.bomazetu.service.Impl;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bomazetu.dao.AccountsRepository;
+import com.bomazetu.dto.AccountDTO;
 import com.bomazetu.model.Account;
 import com.bomazetu.service.AccountService;
 
@@ -16,10 +18,16 @@ public class AccountServiceImpl implements AccountService{
 	
 	@Autowired
 	AccountsRepository accountsRepository;	
+	
+	@Autowired
+    private ModelMapper modelMapper;
 
 	@Override
-	public Account save(Account account) {		
-		return accountsRepository.save(account);
+	public Account save(Account account) {
+		
+		Account accountSavedToDB = this.accountsRepository.save(account);
+        
+		return accountSavedToDB;
 	}
 
 	@Override
@@ -39,8 +47,12 @@ public class AccountServiceImpl implements AccountService{
 	}
 
 	@Override
-	public Account findById(Long Id) {		
-		return accountsRepository.findById(Id).get();
+	public AccountDTO findById(Long Id) {	
+		
+		Account account = this.accountsRepository.findById(Id).get();
+		AccountDTO accountDTO = this.modelMapper.map(account, AccountDTO.class);        
+        
+		return accountDTO;
 	}
 
 	@Override

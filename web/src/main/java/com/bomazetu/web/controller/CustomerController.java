@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bomazetu.dto.AccountDTO;
 import com.bomazetu.model.Account;
 import com.bomazetu.service.AccountService;
 
@@ -51,8 +52,7 @@ public class CustomerController {
     	}    	
         
         return new ResponseEntity<>(accountService.findAll(), HttpStatus.OK);
-    }
-    
+    }    
     
     @PostMapping(value = "/accounts/save")
     public ResponseEntity<Account> save(@RequestBody Account account) {
@@ -61,9 +61,9 @@ public class CustomerController {
     }
     
     @GetMapping(value = "/accounts/{id}")
-    public ResponseEntity<Account> findById(@PathVariable Long id) {
-	    Account findUser = accountService.findById(id);
-	    return new ResponseEntity<Account>(findUser, HttpStatus.OK);
+    public ResponseEntity<AccountDTO> findById(@PathVariable Long id) {
+    	AccountDTO userDto = this.accountService.findById(id);
+	    return new ResponseEntity<AccountDTO>(userDto, HttpStatus.OK);
     }
     
     @PutMapping(value = "/accounts/{id}")
