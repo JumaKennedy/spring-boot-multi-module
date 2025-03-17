@@ -1,6 +1,6 @@
 package com.bomazetu.dto;
 
-public class Account {
+public class AccountDTO {
 	
 	
 	private Long Id;

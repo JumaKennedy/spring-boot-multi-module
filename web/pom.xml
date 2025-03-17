@@ -26,9 +26,9 @@
 		
         <dependency>
 	       <groupId>com.bomazetu</groupId>
-	       <artifactId>common</artifactId>	
-	       <version>${project.version}</version>      
+	       <artifactId>common</artifactId>		           
 	    </dependency>
+	    
 		
 	</dependencies>
 

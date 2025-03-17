@@ -48,8 +48,7 @@
 				<groupId>com.bomazetu</groupId>
 				<artifactId>web</artifactId>
 				<version>${project.version}</version>
-			</dependency>
-	    			
+			</dependency>	    			
 				
 	        </dependencies>
     </dependencyManagement>
@@ -73,27 +72,30 @@
 			</exclusion>
 		  </exclusions>
 	    </dependency> 
+	    <dependency>
+	        <groupId>org.modelmapper</groupId>
+	        <artifactId>modelmapper</artifactId>
+	        <version>3.2.2</version>
+		</dependency>
 	    
 	</dependencies>	
 
  	<modules>
-	    <module>common</module>       <!-- dto, api interfaces, any other common data -->
-        <module>web</module>          <!-- web app boot with the rest controllers, etc -->
+	   <module>common</module>       <!-- dto, api interfaces, any other common data -->
+       <module>web</module>          <!-- web app boot with the rest controllers, etc -->
 	</modules>
 	
 	<build>
     	<!--mvn dependency:tree -DoutputFile="dependency-list.txt"-->
         <plugins>                        
-            <plugin>
+          <plugin>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-maven-plugin</artifactId>
 			<version>${spring-boot.version}</version>  
 			<configuration>
                 <mainClass>${spring.boot.mainclass}</mainClass>              
             </configuration>
-            
-			
-		</plugin>
+		  </plugin>
 		
 		
         </plugins>
