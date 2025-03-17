@@ -47,12 +47,9 @@ public class AccountServiceImpl implements AccountService{
 	}
 
 	@Override
-	public AccountDTO findById(Long Id) {	
-		
+	public AccountDTO findById(Long Id) {		
 		Account account = this.accountsRepository.findById(Id).get();
-		AccountDTO accountDTO = this.modelMapper.map(account, AccountDTO.class);        
-        
-		return accountDTO;
+		return accountDTO(account);
 	}
 
 	@Override
@@ -68,6 +65,10 @@ public class AccountServiceImpl implements AccountService{
 	@Override
 	public List<Account> findAll() {		
 		return accountsRepository.findAll();
+	}
+	
+	AccountDTO accountDTO(Account account) {		
+		return this.modelMapper.map(account, AccountDTO.class); 
 	}
 
 }

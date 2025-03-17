@@ -61,8 +61,8 @@ public class CustomerController {
     }
     
     @GetMapping(value = "/accounts/{id}")
-    public ResponseEntity<AccountDTO> findById(@PathVariable Long id) {
-    	AccountDTO userDto = this.accountService.findById(id);
+    public ResponseEntity<AccountDTO> findById(@PathVariable long id) {
+    	AccountDTO userDto = accountService.findById(id);
 	    return new ResponseEntity<AccountDTO>(userDto, HttpStatus.OK);
     }
     
