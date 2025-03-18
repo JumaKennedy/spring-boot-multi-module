@@ -1,8 +1,17 @@
 spring:
   datasource:
-    username: Dev
     url: jdbc:mysql://localhost:3306/api?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: Dev
     password: K3nn3dy!!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-timeout: 30000 # Maximum wait time for a connection (milliseconds)
+      maximum-pool-size: 10 # Maximum number of connections in the pool
+      minimum-idle: 5 # Minimum number of idle connections to maintain
+      idle-timeout: 600000 # Time a connection can remain idle before being closed (milliseconds)
+      max-lifetime: 1800000 # Maximum lifetime of a connection (milliseconds)
+      auto-commit: true # Default auto-commit behavior
+  
   jpa:
     properties:
       hibernate:
@@ -10,14 +19,17 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: 'true'
-  profiles:
+ 
+profiles:
     active: local
+
 server:
   servlet:
     context-path: /api
     session:
       timeout: 15m
   port: '8080'
+  
 logging:
   level:
     root: INFO

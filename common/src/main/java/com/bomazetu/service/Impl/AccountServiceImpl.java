@@ -54,12 +54,15 @@ public class AccountServiceImpl implements AccountService{
 
 	@Override
 	public String delete(Long Id) {
+		
 		try {
 			accountsRepository.deleteById(Id);
-		} catch (Exception e) {
-			return "Delete error";
+			return "Delete Success";
+		} catch (Exception e) {			
+			e.printStackTrace();
+			return "Entity does not exist";
 		}
-		return "success";
+			
 	}
 
 	@Override

@@ -1,11 +1,16 @@
 package com.bomazetu.web.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bomazetu.dto.AccountDTO;
 import com.bomazetu.model.Account;
 import com.bomazetu.service.AccountService;
+
+import jakarta.validation.Valid;
 
 /**
  * The type Customer controller.
@@ -34,7 +41,7 @@ public class CustomerController {
         return ResponseEntity.ok("Hello from customer api - USER");
     }
       
-    @GetMapping("/accounts/findAll")
+    @GetMapping({"/accounts/findAll","/accounts/"})
     public ResponseEntity<List<Account>> findAll() {     
     	
     	//init data
@@ -55,11 +62,11 @@ public class CustomerController {
     }    
     
     @PostMapping(value = "/accounts/save")
-    public ResponseEntity<Account> save(@RequestBody Account account) {
+    public ResponseEntity<Account> save(@Valid @RequestBody Account account) {
     	Account save =accountService.save(account);
         return new ResponseEntity<Account>(save, HttpStatus.CREATED);
     }
-    
+       
     @GetMapping(value = "/accounts/{id}")
     public ResponseEntity<AccountDTO> findById(@PathVariable long id) {
     	AccountDTO userDto = accountService.findById(id);
@@ -77,6 +84,7 @@ public class CustomerController {
         String result = accountService.delete(id);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+    
     
    
 }

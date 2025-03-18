@@ -5,12 +5,19 @@ public class AccountDTO {
 	
 	private Long Id;
 	private String fname;
+	
 	private String lname;
+	
 	private String phone;
+	
 	private String state;
+	
 	private String city;
+	
 	private String street;
+	
 	private int age;
+	
 	private String gender;
 	
 	public Long getId() {
