@@ -42,13 +42,6 @@ public class CustomerController {
         return ResponseEntity.ok("Hello from customer api - USER");
     }
 	
-	
-	 @PostMapping("/users")
-     public ResponseEntity<String> createUser(@Valid @RequestBody User user) {
-         // Process the valid user data
-         return ResponseEntity.ok("User created successfully");
-     }
-      
     @GetMapping({"/accounts/findAll","/accounts/"})
     public ResponseEntity<List<Account>> findAll() {     
     	

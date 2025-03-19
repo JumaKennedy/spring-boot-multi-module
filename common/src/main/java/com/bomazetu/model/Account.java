@@ -28,7 +28,7 @@ public class Account{
 	private String lname;
 	
 	@NotBlank(message = "Phone is required")
-	@Size(min = 7, max = 14, message = "Phone must be between 7 and 14 characters")
+	@Size(min = 7, max = 14, message = "Phone number must be between 7 and 14 characters")
 	private String phone;
 	
 	@NotBlank(message = "State Name is required")
