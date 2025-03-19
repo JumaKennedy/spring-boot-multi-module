@@ -1,8 +1,9 @@
 package com.bomazetu.web.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bomazetu.dto.AccountDTO;
 import com.bomazetu.model.Account;
+import com.bomazetu.response.ResponseData;
 import com.bomazetu.service.AccountService;
 
 import jakarta.validation.Valid;
@@ -26,52 +28,60 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/v1/customer")
 public class CustomerController {
-
-	@Autowired
+	
 	private AccountService accountService;
 	
+	private ModelMapper modelMapper;
+	
+	protected CustomerController(AccountService accountService, ModelMapper mapper) {
+        this.accountService = accountService;
+        this.modelMapper = mapper;
+    }
+	
 	@GetMapping({"/home","/"})
-    public ResponseEntity<String> userEndpoint() {
-        
+    public ResponseEntity<String> userEndpoint() {        
         return ResponseEntity.ok("Hello from customer api - USER");
     }
 	
-    @GetMapping({"/accounts/findAll","/accounts/"})
-    public ResponseEntity<List<Account>> findAll() {     
+    @GetMapping({"/accounts/findAll","/accounts"})
+    public ResponseEntity<?> list() {
     	
-    	//init data
-    	if(accountService.findAll().isEmpty()) {
-    		Account account = new Account();
-    		account.setAge(28);
-    		account.setCity("Memphis");
-    		account.setFname("Smith");
-    		account.setLname("Amoth");
-    		account.setGender("Male");
-    		account.setPhone("903999399");
-    		account.setState("TN");
-    		account.setStreet("Spring River");
-    		accountService.save(account);
-    	}    	
+        List<Account> list = accountService.findAll();
+        if (list.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+            	
+        ResponseData<?> response = new ResponseData<>(list.size()+ " Records Found", list2Dto(list));
         
-        return new ResponseEntity<>(accountService.findAll(), HttpStatus.OK);
-    }    
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
     
+        
     @PostMapping(value = "/accounts/save")
-    public ResponseEntity<Account> save(@Valid @RequestBody Account account) {
-    	Account save =accountService.save(account);
-        return new ResponseEntity<Account>(save, HttpStatus.CREATED);
+    public ResponseEntity<?> save(@Valid @RequestBody Account account) {
+        Account save =accountService.save(account);
+    	
+    	AccountDTO userDto = entity2Dto(save);    	
+        ResponseData<?> response = new ResponseData<>("Record Created Successfully", userDto);
+        
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
        
     @GetMapping(value = "/accounts/{id}")
-    public ResponseEntity<AccountDTO> findById(@PathVariable long id) {
-    	AccountDTO userDto = accountService.findById(id);
-	    return new ResponseEntity<AccountDTO>(userDto, HttpStatus.OK);
+    public ResponseEntity<?> findById(@PathVariable long id) {
+    	Account userDto = accountService.findById(id).get();
+	    
+    	return new ResponseEntity<AccountDTO>(entity2Dto(userDto), HttpStatus.OK);
     }
     
     @PutMapping(value = "/accounts/{id}")
-    public ResponseEntity<Account> updateUser(@PathVariable Long id, @RequestBody Account account) {
-	    Account update = accountService.update(account);
-	    return new ResponseEntity<Account>(update, HttpStatus.ACCEPTED);
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody Account account) {
+    	
+    	Account update = accountService.update(account);
+	    
+        ResponseData<?> response = new ResponseData<>("Record Updated Successfully", entity2Dto(update));
+        
+        return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
     }
     
     @DeleteMapping(value = "/accounts/{id}")
@@ -80,6 +90,14 @@ public class CustomerController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
     
+    private AccountDTO entity2Dto(Account entity) {
+        return modelMapper.map(entity, AccountDTO.class);
+    }
     
+    private List<AccountDTO> list2Dto(List<Account> listUsers) {
+        return listUsers.stream().map(
+                entity -> entity2Dto(entity))
+                    .collect(Collectors.toList());
+    }
    
 }

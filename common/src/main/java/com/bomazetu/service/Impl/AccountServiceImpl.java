@@ -1,6 +1,7 @@
 package com.bomazetu.service.Impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +48,8 @@ public class AccountServiceImpl implements AccountService{
 	}
 
 	@Override
-	public AccountDTO findById(Long Id) {		
-		Account account = this.accountsRepository.findById(Id).get();
-		return accountDTO(account);
+	public Optional<Account> findById(Long Id) {
+		return accountsRepository.findById(Id);
 	}
 
 	@Override
