@@ -13,8 +13,35 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="account")
-public class Account{		
+public class Account{	
 	
+	
+	
+	public Account() {
+		super();		
+	}
+		
+	public Account(
+			@NotBlank(message = "First Name is required") @Size(min = 2, max = 100, message = "First Name must be between 2 and 100 characters") String fname,
+			@NotBlank(message = "Last Name is required") @Size(min = 2, max = 100, message = "Last Name must be between 2 and 100 characters") String lname,
+			@NotBlank(message = "Phone is required") @Size(min = 7, max = 14, message = "Phone number must be between 7 and 14 characters") String phone,
+			@NotBlank(message = "State Name is required") @Size(min = 2, max = 30, message = "State must be between 2 and 30 characters") String state,
+			@NotBlank(message = "City is required") @Size(min = 2, message = "State must be between 2 and 30 characters") String city,
+			@NotBlank(message = "Address is required") @Size(min = 2, max = 100, message = "Address must be between 2 and 100 characters") String street,
+			@NotNull(message = "Age is required") @Min(value = 18, message = "Age must be at least 18 years") @Max(value = 100, message = "Age must be between 18 and 100 years") int age,
+			@NotBlank(message = "Gender is required") @Size(min = 2, max = 10, message = "Name must be between 4 and 10 characters") String gender) {
+		super();
+		this.fname = fname;
+		this.lname = lname;
+		this.phone = phone;
+		this.state = state;
+		this.city = city;
+		this.street = street;
+		this.age = age;
+		this.gender = gender;
+	}
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;

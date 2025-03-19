@@ -56,6 +56,19 @@ public class CustomerController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
     
+    @GetMapping("/accounts/lastName/{name}")
+    public ResponseEntity<?> byLName(@PathVariable(value="name") String name) {
+    	
+        List<Account> list = accountService.findByLastName(name);
+        if (list.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+            	
+        ResponseData<?> response = new ResponseData<>(list.size()+ " Records Found with last Name "+ name, list2Dto(list));
+        
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+    
         
     @PostMapping(value = "/accounts/save")
     public ResponseEntity<?> save(@Valid @RequestBody Account account) {

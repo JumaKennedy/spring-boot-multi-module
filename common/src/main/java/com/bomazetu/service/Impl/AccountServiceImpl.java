@@ -74,4 +74,10 @@ public class AccountServiceImpl implements AccountService{
 		return this.modelMapper.map(account, AccountDTO.class); 
 	}
 
+	@Override
+	public List<Account> findByLastName(String name) {
+		
+		return accountsRepository.findBylname(name);
+	}
+
 }

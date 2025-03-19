@@ -13,5 +13,6 @@ public interface AccountService {
 	public Optional<Account> findById(Long Id);
 	public String delete(Long Id);
 	public List<Account> findAll();
+	public List<Account> findByLastName(String name);
 
 }
